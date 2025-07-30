@@ -1,0 +1,73 @@
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Cadastro de Jogador - BCX ELO</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+
+  <div class="max-w-xl mx-auto mt-10 bg-white p-6 rounded-xl shadow-md">
+    <div class="text-center mb-6">
+      <img src="logo_bcx.png" alt="Logo BCX" class="w-32 mx-auto mb-2">
+      <h1 class="text-2xl font-bold text-pink-600">Cadastro de Jogador - BCX ELO</h1>
+    </div>
+
+    <form id="formCadastro" class="space-y-4">
+      <div>
+        <label class="block font-semibold mb-1" for="nome">Nome do Jogador:</label>
+        <input type="text" id="nome" required placeholder="Ex: João Silva"
+          class="w-full border border-gray-300 p-2 rounded-md focus:outline-pink-500">
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1" for="clube">Clube:</label>
+        <input type="text" id="clube" value="BCX" readonly
+          class="w-full bg-gray-100 border border-gray-300 p-2 rounded-md">
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1" for="cidade">Cidade:</label>
+        <input type="text" id="cidade" value="Barra do Choça" readonly
+          class="w-full bg-gray-100 border border-gray-300 p-2 rounded-md">
+      </div>
+
+      <div>
+        <label class="block font-semibold mb-1" for="elo">Elo Inicial:</label>
+        <input type="number" id="elo" value="1500" readonly
+          class="w-full bg-gray-100 border border-gray-300 p-2 rounded-md">
+      </div>
+
+      <button type="submit"
+        class="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 px-4 rounded-md transition duration-200">
+        Cadastrar
+      </button>
+    </form>
+
+    <div id="mensagemSucesso" class="text-green-600 font-semibold text-center mt-4"></div>
+
+    <div class="text-center mt-6">
+      <a href="ranking.html" class="text-pink-600 hover:underline">Ver Ranking</a>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("formCadastro").addEventListener("submit", function(event) {
+      event.preventDefault();
+      const nome = document.getElementById("nome").value;
+      const clube = document.getElementById("clube").value;
+      const cidade = document.getElementById("cidade").value;
+      const elo = parseInt(document.getElementById("elo").value);
+      const jogador = { nome, clube, cidade, elo };
+      let lista = JSON.parse(localStorage.getItem("jogadores")) || [];
+      lista.push(jogador);
+      localStorage.setItem("jogadores", JSON.stringify(lista));
+      document.getElementById("mensagemSucesso").textContent = "Jogador cadastrado com sucesso!";
+      document.getElementById("formCadastro").reset();
+    });
+  </script>
+
+</body>
+</html>
